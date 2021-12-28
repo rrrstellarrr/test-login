@@ -24,6 +24,10 @@ public class UserDetailsImpl implements UserDetails {
         return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {    // 인가하는 부분
         UserRole userRole = user.getRole();
@@ -62,18 +66,6 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public String getEmail() {
-        return user.getEmail();
-    }
-
-    public Long getUserId() {
-        return user.getId();
-    }
-
-    public String getRole() {
-        return user.getRole().getTitle();
     }
 
 }

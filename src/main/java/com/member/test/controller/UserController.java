@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
 public class UserController {
@@ -18,6 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    // 메인 페이지
     @GetMapping("/")
     public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         if(userDetails != null) {
@@ -51,6 +53,7 @@ public class UserController {
         return "redirect:/";
     }
 
+    // 마이페이지
     @GetMapping("/user/info")
     public String userInfo(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         if(userDetails != null) {
@@ -58,4 +61,24 @@ public class UserController {
         }
         return "myPage";
     }
+
+    // 회원정보 수정 페이지
+    @GetMapping("/user/edit")
+    public String userEdit(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        if(userDetails != null) {
+            model.addAttribute("user", userDetails.getUser());
+        }
+        return "myinfo-edit";
+    }
+
+    // 회원정보 수정
+    @PutMapping("/user/edit")
+    public String userEdit(SaveRequestDto requestDto) {
+//        User userEntity = userService.editUser(requestDto);
+//        userDetails.setUser(userEntity);
+        userService.editUser(requestDto);
+
+        return "redirect:/user/info";
+    }
+
 }

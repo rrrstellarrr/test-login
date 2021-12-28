@@ -124,10 +124,6 @@
 </header>
 <div class="d-flex flex-column flex-md-row align-items-center pb-3 py-3 mb-4">
     <div class="container d-flex flex-wrap justify-content-center">
-        <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
-            <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-        </form>
-
         <div class="text-end">
             <span th:if="${user.role.toString() == 'ADMIN'}">[관리자]</span>
             <span th:if="${user.role.toString() == 'USER'}">[일반 사용자]</span>
