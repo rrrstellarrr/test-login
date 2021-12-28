@@ -2,11 +2,13 @@ package com.member.test.service;
 
 import com.member.test.domain.User;
 import com.member.test.domain.UserRole;
+import com.member.test.dto.ResponseDto;
 import com.member.test.dto.SaveRequestDto;
 import com.member.test.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -21,7 +23,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void joinrUser(SaveRequestDto requestDto) {
+    @Transactional
+    public void joinUser(SaveRequestDto requestDto) {
 
         Optional<User> userName = userRepository.findByUsername(requestDto.getUsername());
         if(userName.isPresent()) {
@@ -39,4 +42,10 @@ public class UserService {
         }
         userRepository.save(requestDto.toEntity());
     }
+
+//    @Transactional
+//    public User editUserInfo(Long id) {
+//       return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다. userID = " + id));
+//    }
+
 }

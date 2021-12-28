@@ -21,7 +21,7 @@ public class UserController {
     @GetMapping("/")
     public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         if(userDetails != null) {
-            model.addAttribute("username", userDetails.getUsername());
+            model.addAttribute("user", userDetails.getUser());
         }
         return "index";
     }
@@ -47,7 +47,15 @@ public class UserController {
     // 회원 가입 요청 처리
     @PostMapping("/join")
     public String registerUser(SaveRequestDto requestDto) {
-        userService.joinrUser(requestDto);
+        userService.joinUser(requestDto);
         return "redirect:/";
+    }
+
+    @GetMapping("/user/info")
+    public String userInfo(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        if(userDetails != null) {
+            model.addAttribute("user", userDetails.getUser());
+        }
+        return "myPage";
     }
 }
